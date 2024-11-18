@@ -11,6 +11,7 @@ namespace CDRest.Controllers.Tests
     [TestClass()]
     public class RecordControllerTests
     {
+
         [TestMethod()]
         public void GetTest()
         {
