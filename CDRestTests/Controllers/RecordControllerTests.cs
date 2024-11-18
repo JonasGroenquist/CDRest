@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CDRest.Repositories;
+using CDRest.Model;
 
 namespace CDRest.Controllers.Tests
 {
@@ -23,7 +24,8 @@ namespace CDRest.Controllers.Tests
         [TestMethod()]
         public void GetTest()
         {
-            Assert.AreEqual(2, controller.Get().Value.Count());
+            List<Record> records = repo.GetAll();
+            Assert.AreEqual(2, records.Count);
         }
     }
 }
