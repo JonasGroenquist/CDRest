@@ -19,11 +19,11 @@ namespace CDRest.Controllers
         }
         // GET: api/<RecordCtrlr>
         [HttpGet]
-        public ActionResult <IEnumerable<Record>> Get()
+        public ActionResult <IEnumerable<Record>> Get([FromQuery] string? title, [FromQuery] string? artist, [FromQuery] string? sortBy)
         {
             try
             {
-                var records = _repository.GetAll();
+                var records = _repository.GetAll(title, artist, sortBy);
                 if (records == null || !records.Any())
                 {
                     return NotFound("No records found");
