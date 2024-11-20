@@ -25,7 +25,21 @@ namespace CDRest.Controllers.Tests
         public void GetTest()
         {
             List<Record> records = repo.GetAll();
+            Assert.AreEqual(3, records.Count);
+        }
+
+        [TestMethod]
+        public void FilterTest() { 
+            List<Record> records = repo.GetAll();
+            Assert.AreEqual(3, records.Count);
+            records = repo.GetAll(artist: "Art");
             Assert.AreEqual(2, records.Count);
+            records = repo.GetAll(artist: "3");
+            Assert.AreEqual(1, records.Count);
+            records = repo.GetAll(sortBy: "Year");
+            Assert.AreEqual(1919, records[0].Year);
+
+
         }
     }
 }
