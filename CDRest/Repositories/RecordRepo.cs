@@ -1,4 +1,5 @@
 ﻿using CDRest.Model;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace CDRest.Repositories
 {
@@ -12,9 +13,36 @@ namespace CDRest.Repositories
             // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers
         };
 
-        public List <Record> GetAll()
+        public List <Record> GetAll(string? title = null, string? artist = null, string? sortBy = null)
         {
             List<Record> records = new(Data);
+
+            if (title != null)
+            {
+                records = records.FindAll(record => record.Title.StartsWith(title));
+            }
+            if (artist != null)
+            {
+                records = records.FindAll(record => record.Artist.StartsWith(artist));
+            }
+            if (sortBy != null)
+            {
+                switch (sortBy.ToLower())
+                {
+                    case "id":
+                        records = records.OrderBy(record => record.Id).ToList();
+                        break;
+                    case "title":
+                        records = records.OrderBy(record => record.Title).ToList();
+                        break;
+                    case "artist":
+                        records = records.OrderBy(record => record.Artist).ToList();
+                        break;
+                    case "year":
+                        records = records.OrderBy(record => record.Year).ToList();
+                        break;
+                }
+            }
             return records;
         }
     }
